@@ -53,6 +53,9 @@ button {
 
 .outer-container {
   background: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* === NAVBAR === */
@@ -134,6 +137,9 @@ button {
     & .book-buttons > button {
       width: 100%;
       padding: 1em 1.5em;
+      transition:
+        background 0.4s ease,
+        transform 0.4s ease;
     }
 
     & .book-buttons > button:hover {
@@ -152,6 +158,13 @@ button {
       background-color: var(--red-color);
     }
   }
+}
+
+/* === EMPTY LIBRARY === */
+
+.no-books-present {
+  text-align: center;
+  font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-3xl));
 }
 
 /* === MODAL FORM === */
@@ -239,7 +252,7 @@ button {
   font-family: "Underwood Champion", var(--system-ui);
   font-size: var(--font-size-s);
   background-color: var(--brown-color);
-  margin-top: 3rem;
+  margin-top: auto;
 
   & .footer-line {
     color: var(--white-color);
