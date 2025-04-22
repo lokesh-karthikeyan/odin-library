@@ -49,6 +49,10 @@ button {
     transform 0.4s ease;
 }
 
+.outer-container {
+  background: var(--background-color);
+}
+
 /* === NAVBAR === */
 
 .navbar {
@@ -63,6 +67,7 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 2em 1em;
+  margin-bottom: 3rem;
 
   & .add-book {
     padding: 0.8em 2em;
@@ -144,6 +149,19 @@ button {
     & .delete {
       background-color: var(--red-color);
     }
+  }
+}
+
+.footer-content {
+  padding: 1em;
+  font-family: "Underwood Champion", var(--system-ui);
+  font-size: var(--font-size-s);
+  background-color: var(--brown-color);
+  margin-top: 3rem;
+
+  & .footer-line {
+    color: var(--white-color);
+    text-align: center;
   }
 }
 
