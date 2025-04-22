@@ -31,6 +31,7 @@
   --green-color: hsl(104 50.5% 79.4%);
   --red-color: hsl(15 96.3% 79%);
   --yellow-color: hsl(60 96.3% 79%);
+  --blue-color: hsl(187 70.8% 82.5%);
 
   --font-size-s: 0.875rem;
   --font-size-m: 1rem;
@@ -47,6 +48,7 @@ button {
   transition:
     background 0.4s ease,
     transform 0.4s ease;
+  border-radius: 0.3rem;
 }
 
 .outer-container {
@@ -152,6 +154,86 @@ button {
   }
 }
 
+/* === MODAL FORM === */
+
+#modal-container {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(0.3em);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
+
+  & .modal {
+    background: var(--background-color);
+    padding: 2.5em 2em;
+    font-family: "Underwood Champion", var(--system-ui);
+    max-width: 40em;
+    width: 100%;
+    border-radius: 0.5em;
+    position: absolute;
+    transform: translate(0, -100%);
+    transition: transform 0.4s ease;
+
+    & .add-book {
+      font-size: clamp(var(--font-size-l), 2.5vw, var(--font-size-xl));
+      display: flex;
+      gap: 1.5em;
+      flex-direction: column;
+    }
+
+    & .form-control {
+      display: flex;
+      gap: 1em;
+    }
+
+    & .form-control:not(:last-of-type) {
+      flex-direction: column;
+    }
+
+    & .form-control:not(:last-of-type) > label {
+      max-width: 5ch;
+    }
+
+    & .form-control > input:not([type="checkbox"]) {
+      width: 100%;
+    }
+
+    & .form-button {
+      padding: 1em 1.5em;
+      background: var(--blue-color);
+    }
+
+    & .form-button:hover {
+      transform: scale(0.95);
+    }
+  }
+}
+
+#modal-container.show {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease,
+    transform 0.4s ease;
+
+  & .modal {
+    transform: translate(0, 0);
+  }
+}
+
+/* === FOOTER === */
+
 .footer-content {
   padding: 1em;
   font-family: "Underwood Champion", var(--system-ui);
@@ -165,6 +247,8 @@ button {
   }
 }
 
+/* === LAPTOP / TABLETS === */
+
 @media (width > 62.5em) {
   .navbar {
     padding: 1em 6rem;
@@ -173,5 +257,13 @@ button {
   .books-list {
     padding: 2.5em 6rem;
     gap: 5em;
+  }
+
+  #modal-container {
+    & .modal {
+      & .form-control:not(:last-of-type) {
+        flex-direction: row;
+      }
+    }
   }
 }
