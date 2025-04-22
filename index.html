@@ -17,21 +17,20 @@
         <template id="book-template">
           <section class="card">
             <h2 class="book-title"></h2>
-            <table class="book-details">
-              <tbody>
-                <tr>
-                  <th class="book-author">Author</th>
-                  <td class="book-author value"></td>
-                </tr>
-                <tr>
-                  <th class="book-total-pages">Total Pages</th>
-                  <td class="book-total-pages value"></td>
-                </tr>
-              </tbody>
-            </table>
+            <hr>
+            <div class="book-details">
+              <div class="book-author">
+                <h3 class="book-author title">Author</h3>
+                <p class="book-author value"></p>
+              </div>
+              <div class="book-total-pages">
+                <h3 class="book-total-pages title">Total Pages</h3>
+                <p class="book-total-pages value"></p>
+              </div>
+            </div>
             <div class="book-buttons">
               <button id="book-status"></button>
-              <button id="remove-book">Delete Book</button>
+              <button id="remove-book" class="delete">Delete Book</button>
             </div>
           </section>
         </template>
