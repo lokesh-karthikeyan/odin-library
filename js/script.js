@@ -4,13 +4,13 @@ const myLibrary = [];
  * Object Constructor: Create instances of Books.                                          *
  *******************************************************************************************/
 
-function Book(author, title, totalPages, readStatus) {
+function Book(title, author, totalPages, readStatus) {
   if (!new.target) {
     throw Error("Use `new` keyword to instantiate the object.");
   }
   this.id = crypto.randomUUID();
-  this.author = author;
   this.title = title;
+  this.author = author;
   this.totalPages = totalPages;
   this.readStatus = readStatus;
 }
@@ -83,7 +83,7 @@ openModal.addEventListener("click", () => {
   modalContainer.classList.toggle("show");
 });
 
-window.addEventListener("click", (event) => {
+modalContainer.addEventListener("click", (event) => {
   if (event.target === modalContainer) {
     modalContainer.classList.toggle("show");
   }
@@ -176,4 +176,70 @@ function emptyLibrary(booksContainer) {
   let emptyBooksNotice = template.content.cloneNode(true);
 
   booksContainer.appendChild(emptyBooksNotice);
+}
+
+/*******************************************************************************************
+ * Event Listener: Operate on submitted Form data.                                         *
+ *******************************************************************************************/
+
+let createNewBook = document.querySelector(".form-button");
+
+createNewBook.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  let title = document.getElementById("title").value;
+  let author = document.getElementById("author").value;
+  let pages = document.getElementById("pages").value;
+  let readStatus = document.getElementById("read-status").checked;
+
+  if (title === "" || author === "" || pages === "") return;
+
+  let newBook = new Book(title, author, pages, readStatus);
+  addBookToLibrary(newBook);
+  resetForm();
+});
+
+/*******************************************************************************************
+ * Function Objective: Appends the book object to the Library & myLibrary array.           *
+ *******************************************************************************************/
+
+function addBookToLibrary(book) {
+  let container = document.querySelector(".books-list");
+  let template = document.getElementById("book-template");
+  let newBook = template.content.cloneNode(true);
+  let modalContainer = document.getElementById("modal-container");
+
+  newBook.querySelector(".card").id = `book-${book.id}`;
+  newBook.getElementById("book-status").id = `book-status-${book.id}`;
+  newBook.getElementById("remove-book").id = `remove-book-${book.id}`;
+
+  newBook.querySelector(".book-title").textContent = book.title;
+  newBook.querySelector(".book-author.value").textContent = book.author;
+  newBook.querySelector(".book-total-pages.value").textContent =
+    book.totalPages;
+  newBook.getElementById(`book-status-${book.id}`).textContent = book.readStatus
+    ? "Completed"
+    : "Start Reading";
+
+  newBook
+    .getElementById(`book-status-${book.id}`)
+    .classList.remove("read", "unread");
+  newBook
+    .getElementById(`book-status-${book.id}`)
+    .classList.add(book.readStatus ? "read" : "unread");
+
+  container.appendChild(newBook);
+  myLibrary.push(book);
+  modalContainer.click();
+}
+
+/*******************************************************************************************
+ * Function Objective: Resets the saved Form data for next form input.                     *
+ *******************************************************************************************/
+
+function resetForm() {
+  document.getElementById("title").value = "";
+  document.getElementById("author").value = "";
+  document.getElementById("pages").value = "";
+  document.getElementById("read-status").checked = false;
 }
