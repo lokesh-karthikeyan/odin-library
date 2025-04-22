@@ -32,3 +32,38 @@
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 2.652rem;
 }
+
+.navbar {
+  font-family: "La Machine Company", var(--system-ui);
+  letter-spacing: 0.3em;
+  font-size: clamp(var(--font-size-l), 2vw, var(--font-size-2xl));
+  color: var(--white-color);
+  background: var(--brown-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2em 1em;
+
+  & .add-book {
+    padding: 0.8em 2em;
+    font-size: clamp(var(--font-size-l), 2vw, var(--font-size-2xl));
+    color: var(--brown-color);
+    background: var(--white-color);
+    letter-spacing: 0.3em;
+    border: none;
+    transition: background 0.4s ease;
+  }
+
+  & .add-book:hover {
+    color: var(--brown-color);
+    background: var(--card-color);
+  }
+}
+
+@media (width > 62.5em) {
+  .navbar {
+    padding: 1em;
+  }
+}
