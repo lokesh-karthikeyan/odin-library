@@ -19,8 +19,6 @@ function Book(title, author, totalPages, readStatus) {
  * Helper Function: Takes in the params for "Books" and creates instances & stores it.     *
  *******************************************************************************************/
 
-function addBookToLibrary(author, title, totalPages, readStatus) {}
-
 let newBook1 = new Book("Test", "Test", 190, true);
 let newBook2 = new Book(
   "Tffeesttttttttttttttttttttttttttttttttttt",
@@ -36,7 +34,7 @@ let newBook3 = new Book(
 );
 let newBook4 = new Book("Testgrw", "Teswwt", 134, false);
 
-myLibrary.push(newBook1, newBook2, newBook3, newBook4);
+// addBookToLibrary(newBook1, newBook2, newBook3, newBook4);
 
 /*******************************************************************************************
  * Function Objective: Loops through the "myLibrary" & adds it to DOM.                     *
@@ -45,30 +43,20 @@ myLibrary.push(newBook1, newBook2, newBook3, newBook4);
 document.addEventListener("DOMContentLoaded", displayBooks());
 
 function displayBooks() {
-  let container = document.querySelector(".books-list");
-  let template = document.getElementById("book-template");
+  let booksContainer = document.querySelector(".books-list");
+  if (myLibrary.length === 0) {
+    emptyLibrary(booksContainer);
+    return;
+  }
 
   for (let book of myLibrary) {
-    let newBook = template.content.cloneNode(true);
-    newBook.querySelector(".card").id = `book-${book.id}`;
-    newBook.getElementById("book-status").id = `book-status-${book.id}`;
-    newBook.getElementById("remove-book").id = `remove-book-${book.id}`;
+    if (book) {
+      let newBookElement = createBookElement(book);
+      addBookToDOM(newBookElement);
 
-    newBook.querySelector(".book-title").textContent = book.title;
-    newBook.querySelector(".book-author.value").textContent = book.author;
-    newBook.querySelector(".book-total-pages.value").textContent =
-      book.totalPages;
-    newBook.getElementById(`book-status-${book.id}`).textContent =
-      book.readStatus ? "Completed" : "Start Reading";
-
-    newBook
-      .getElementById(`book-status-${book.id}`)
-      .classList.remove("read", "unread");
-    newBook
-      .getElementById(`book-status-${book.id}`)
-      .classList.add(book.readStatus ? "read" : "unread");
-
-    container.appendChild(newBook);
+      if (findBookById(book.id)) continue;
+      addBookToLibrary(book);
+    }
   }
 }
 
@@ -153,7 +141,8 @@ function fetchElementId(element) {
  *******************************************************************************************/
 
 function findBookById(bookId) {
-  return myLibrary.find((book) => book.id === bookId);
+  let book = myLibrary.find((book) => book.id === bookId);
+  return book ? book : false;
 }
 
 /*******************************************************************************************
@@ -194,20 +183,24 @@ createNewBook.addEventListener("click", (event) => {
 
   if (title === "" || author === "" || pages === "") return;
 
+  let modalContainer = document.getElementById("modal-container");
   let newBook = new Book(title, author, pages, readStatus);
+  let newBookElement = createBookElement(newBook);
+
+  addBookToDOM(newBookElement);
   addBookToLibrary(newBook);
+  removeEmptyLibraryNotices();
   resetForm();
+  modalContainer.click();
 });
 
 /*******************************************************************************************
- * Function Objective: Appends the book object to the Library & myLibrary array.           *
+ * Function Objective: Creates a new Book element form HTML template.                      *
  *******************************************************************************************/
 
-function addBookToLibrary(book) {
-  let container = document.querySelector(".books-list");
+function createBookElement(book) {
   let template = document.getElementById("book-template");
   let newBook = template.content.cloneNode(true);
-  let modalContainer = document.getElementById("modal-container");
 
   newBook.querySelector(".card").id = `book-${book.id}`;
   newBook.getElementById("book-status").id = `book-status-${book.id}`;
@@ -228,9 +221,36 @@ function addBookToLibrary(book) {
     .getElementById(`book-status-${book.id}`)
     .classList.add(book.readStatus ? "read" : "unread");
 
-  container.appendChild(newBook);
-  myLibrary.push(book);
-  modalContainer.click();
+  return newBook;
+}
+
+/*******************************************************************************************
+ * Helper Function: Adds the "Document Fragment" to DOM.                                   *
+ *******************************************************************************************/
+
+function addBookToDOM(bookElement) {
+  let container = document.querySelector(".books-list");
+  container.appendChild(bookElement);
+}
+
+/*******************************************************************************************
+ * Function Objective: Appends the book object to the Library & myLibrary array.           *
+ *******************************************************************************************/
+
+function addBookToLibrary(...books) {
+  myLibrary.push(...books);
+}
+
+/*******************************************************************************************
+ * Helper Function: Removes the "No Book" information from DOM.                            *
+ *******************************************************************************************/
+
+function removeEmptyLibraryNotices() {
+  let notice = document.querySelector(".no-books-present");
+
+  if (notice === false || notice === null || notice === undefined) return;
+
+  notice.remove();
 }
 
 /*******************************************************************************************
