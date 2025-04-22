@@ -42,6 +42,8 @@ myLibrary.push(newBook1, newBook2, newBook3, newBook4);
  * Function Objective: Loops through the "myLibrary" & adds it to DOM.                     *
  *******************************************************************************************/
 
+document.addEventListener("DOMContentLoaded", displayBooks());
+
 function displayBooks() {
   let container = document.querySelector(".books-list");
   let template = document.getElementById("book-template");
@@ -87,4 +89,79 @@ window.addEventListener("click", (event) => {
   }
 });
 
-displayBooks();
+/*******************************************************************************************
+ * Event Listener: Delegates click event to <main> element.                                *
+ *******************************************************************************************/
+
+let booksContainer = document.querySelector(".books-list");
+
+booksContainer.addEventListener("click", (event) => {
+  let button = event.target.closest("button");
+  if (!button) return;
+
+  if (button.classList.contains("read-status")) {
+    toggleReadStatus(button);
+    return;
+  }
+
+  if (button.classList.contains("delete")) {
+    let id = fetchElementId(button);
+    let bookNode = document.getElementById(`book-${id}`);
+
+    removeBookById(id);
+    bookNode.remove();
+  }
+});
+
+/*******************************************************************************************
+ * Function Objective: Toggles book.readStatus.                                            *
+ *******************************************************************************************/
+
+function toggleReadStatus(element) {
+  if (element.classList.contains("read")) {
+    element.classList.remove("read");
+    element.classList.add("unread");
+    element.textContent = "Start Reading";
+  } else if (element.classList.contains("unread")) {
+    element.classList.remove("unread");
+    element.classList.add("read");
+    element.textContent = "Completed";
+  }
+
+  let id = fetchElementId(element);
+  let selectedBook = findBookById(id);
+
+  if (selectedBook.readStatus) {
+    selectedBook.readStatus = false;
+  } else {
+    selectedBook.readStatus = true;
+  }
+}
+
+/*******************************************************************************************
+ * Function Objective: Fetch the book ID from element's ID.                                *
+ *******************************************************************************************/
+
+function fetchElementId(element) {
+  let elementId = element.id;
+  return elementId.replace(/^(remove-book-|book-status-)/, "");
+}
+
+/*******************************************************************************************
+ * Function Objective: Find the book object by ID.                                         *
+ *******************************************************************************************/
+
+function findBookById(bookId) {
+  return myLibrary.find((book) => book.id === bookId);
+}
+
+/*******************************************************************************************
+ * Function Objective: Remove the book object by ID.                                       *
+ *******************************************************************************************/
+
+function removeBookById(bookId) {
+  let index = myLibrary.findIndex((book) => book.id === bookId);
+  if (index === -1) return;
+
+  myLibrary.splice(index, 1);
+}
