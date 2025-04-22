@@ -109,6 +109,7 @@ booksContainer.addEventListener("click", (event) => {
     let bookNode = document.getElementById(`book-${id}`);
 
     removeBookById(id);
+    if (myLibrary.length < 1) emptyLibrary(booksContainer);
     bookNode.remove();
   }
 });
@@ -164,4 +165,15 @@ function removeBookById(bookId) {
   if (index === -1) return;
 
   myLibrary.splice(index, 1);
+}
+
+/*******************************************************************************************
+ * Function Objective: Adds different content if Library is empty.                         *
+ *******************************************************************************************/
+
+function emptyLibrary(booksContainer) {
+  let template = document.getElementById("empty-library");
+  let emptyBooksNotice = template.content.cloneNode(true);
+
+  booksContainer.appendChild(emptyBooksNotice);
 }
