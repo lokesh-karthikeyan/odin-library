@@ -22,8 +22,18 @@ function Book(author, title, totalPages, readStatus) {
 function addBookToLibrary(author, title, totalPages, readStatus) {}
 
 let newBook1 = new Book("Test", "Test", 190, true);
-let newBook2 = new Book("Tffeest", "Testgw", 1560, true);
-let newBook3 = new Book("Tes5456t", "Testgw", 10, false);
+let newBook2 = new Book(
+  "Tffeesttttttttttttttttttttttttttttttttttt",
+  "Testgw",
+  1560,
+  true,
+);
+let newBook3 = new Book(
+  "Tes5456t",
+  "Testgwyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+  10,
+  false,
+);
 let newBook4 = new Book("Testgrw", "Teswwt", 134, false);
 
 myLibrary.push(newBook1, newBook2, newBook3, newBook4);
@@ -59,5 +69,22 @@ function displayBooks() {
     container.appendChild(newBook);
   }
 }
+
+/*******************************************************************************************
+ * Event Listener: Open / Close Modal Form.                                                *
+ *******************************************************************************************/
+
+let openModal = document.querySelector(".add-book");
+let modalContainer = document.getElementById("modal-container");
+
+openModal.addEventListener("click", () => {
+  modalContainer.classList.toggle("show");
+});
+
+window.addEventListener("click", (event) => {
+  if (event.target === modalContainer) {
+    modalContainer.classList.toggle("show");
+  }
+});
 
 displayBooks();
