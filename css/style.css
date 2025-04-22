@@ -1,5 +1,7 @@
 @import "normalize.css";
 
+/* === FONTS === */
+
 @font-face {
   font-family: "La Machine Company";
   src:
@@ -14,6 +16,8 @@
     url("../fonts/underwood_champion-webfont.woff") format("woff");
 }
 
+/* === GLOBAL VARIABLES === */
+
 :root {
   --system-ui:
     system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
@@ -24,6 +28,9 @@
   --background-color: hsl(45 51.1% 81.6%);
   --card-color: hsl(44 44.1% 90%);
   --brown-color: hsl(0 10.6% 25.9%);
+  --green-color: hsl(104 50.5% 79.4%);
+  --red-color: hsl(15 96.3% 79%);
+  --yellow-color: hsl(60 96.3% 79%);
 
   --font-size-s: 0.875rem;
   --font-size-m: 1rem;
@@ -32,6 +39,17 @@
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 2.652rem;
 }
+
+/* === GLOBAL STYLES === */
+
+button {
+  cursor: pointer;
+  transition:
+    background 0.4s ease,
+    transform 0.4s ease;
+}
+
+/* === NAVBAR === */
 
 .navbar {
   font-family: "La Machine Company", var(--system-ui);
@@ -53,7 +71,6 @@
     background: var(--white-color);
     letter-spacing: 0.3em;
     border: none;
-    transition: background 0.4s ease;
   }
 
   & .add-book:hover {
@@ -62,8 +79,81 @@
   }
 }
 
+/* === MAIN === */
+
+.books-list {
+  font-family: "Underwood Champion", var(--system-ui);
+  padding: 2em 1em;
+  background: var(--background-color);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5em;
+
+  & .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1.2em 2em;
+    background: var(--card-color);
+    border-radius: 0.5em;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+    & .book-title {
+      text-align: center;
+      font-family: "La Machine Company", var(--system-ui);
+      letter-spacing: 0.2em;
+    }
+
+    & .book-author,
+    .book-total-pages,
+    .book-buttons {
+      display: flex;
+      gap: 1em;
+    }
+
+    & .book-author.title {
+      min-width: 6.5em;
+    }
+
+    & p {
+      word-break: break-all;
+    }
+
+    & .book-buttons {
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    & .book-buttons > button {
+      width: 100%;
+      padding: 1em 1.5em;
+    }
+
+    & .book-buttons > button:hover {
+      transform: scale(0.9);
+    }
+
+    & .read {
+      background: var(--green-color);
+    }
+
+    & .unread {
+      background: var(--yellow-color);
+    }
+
+    & .delete {
+      background-color: var(--red-color);
+    }
+  }
+}
+
 @media (width > 62.5em) {
   .navbar {
-    padding: 1em;
+    padding: 1em 6rem;
+  }
+
+  .books-list {
+    padding: 2.5em 6rem;
+    gap: 5em;
   }
 }
