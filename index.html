@@ -13,6 +13,29 @@
         <h1 class="navbar-title">Library</h1>
         <button class="add-book" type="button">&plus; Add Book</button>
       </nav>
+      <main class="books-list">
+        <template id="book-template">
+          <section class="card">
+            <h2 class="book-title"></h2>
+            <table class="book-details">
+              <tbody>
+                <tr>
+                  <th class="book-author">Author</th>
+                  <td class="book-author value"></td>
+                </tr>
+                <tr>
+                  <th class="book-total-pages">Total Pages</th>
+                  <td class="book-total-pages value"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="book-buttons">
+              <button id="book-status"></button>
+              <button id="remove-book">Delete Book</button>
+            </div>
+          </section>
+        </template>
+      </main>
     </div>
   </body>
 </html>
