@@ -29,21 +29,35 @@ let newBook4 = new Book("Testgrw", "Teswwt", 134, false);
 myLibrary.push(newBook1, newBook2, newBook3, newBook4);
 
 /*******************************************************************************************
- * Function Objective: Loops through the "myLibrary" & add it to DOM.                      *
+ * Function Objective: Loops through the "myLibrary" & adds it to DOM.                     *
  *******************************************************************************************/
 
 function displayBooks() {
   let container = document.querySelector(".books-list");
+  let template = document.getElementById("book-template");
 
   for (let book of myLibrary) {
-    console.log(book);
+    let newBook = template.content.cloneNode(true);
+    newBook.querySelector(".card").id = `book-${book.id}`;
+    newBook.getElementById("book-status").id = `book-status-${book.id}`;
+    newBook.getElementById("remove-book").id = `remove-book-${book.id}`;
+
+    newBook.querySelector(".book-title").textContent = book.title;
+    newBook.querySelector(".book-author.value").textContent = book.author;
+    newBook.querySelector(".book-total-pages.value").textContent =
+      book.totalPages;
+    newBook.getElementById(`book-status-${book.id}`).textContent =
+      book.readStatus ? "Completed" : "Start Reading";
+
+    newBook
+      .getElementById(`book-status-${book.id}`)
+      .classList.remove("read", "unread");
+    newBook
+      .getElementById(`book-status-${book.id}`)
+      .classList.add(book.readStatus ? "read" : "unread");
+
+    container.appendChild(newBook);
   }
 }
-
-/*******************************************************************************************
- * Helper Function: Creates card title.                                                    *
- *******************************************************************************************/
-
-function createCardContents(book) {}
 
 displayBooks();
