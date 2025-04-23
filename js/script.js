@@ -16,27 +16,6 @@ function Book(title, author, totalPages, readStatus) {
 }
 
 /*******************************************************************************************
- * Helper Function: Takes in the params for "Books" and creates instances & stores it.     *
- *******************************************************************************************/
-
-let newBook1 = new Book("Test", "Test", 190, true);
-let newBook2 = new Book(
-  "Tffeesttttttttttttttttttttttttttttttttttt",
-  "Testgw",
-  1560,
-  true,
-);
-let newBook3 = new Book(
-  "Tes5456t",
-  "Testgwyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
-  10,
-  false,
-);
-let newBook4 = new Book("Testgrw", "Teswwt", 134, false);
-
-// addBookToLibrary(newBook1, newBook2, newBook3, newBook4);
-
-/*******************************************************************************************
  * Function Objective: Loops through the "myLibrary" & adds it to DOM.                     *
  *******************************************************************************************/
 
@@ -263,3 +242,20 @@ function resetForm() {
   document.getElementById("pages").value = "";
   document.getElementById("read-status").checked = false;
 }
+
+/*******************************************************************************************
+ * Event Listener: Hamburger Menu toggler.                                                 *
+ *******************************************************************************************/
+
+let menu = document.getElementById("hamburger-button");
+
+menu.addEventListener("click", () => {
+  let menuItem = document.querySelector(".right-side");
+  menuItem.classList.toggle("is-active");
+
+  if (menuItem.classList.contains("is-active")) {
+    menu.innerHTML = "&#128473;";
+  } else {
+    menu.innerHTML = "&#9776;";
+  }
+});
