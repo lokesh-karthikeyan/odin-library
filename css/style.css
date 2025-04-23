@@ -74,18 +74,49 @@ button {
   padding: 2em 1em;
   margin-bottom: 3rem;
 
-  & .add-book {
-    padding: 0.8em 2em;
-    font-size: clamp(var(--font-size-l), 2vw, var(--font-size-2xl));
-    color: var(--brown-color);
-    background: var(--white-color);
-    letter-spacing: 0.3em;
-    border: none;
+  & .right-side {
+    text-align: end;
+    flex: 1 1 100%;
+    max-height: 0;
+    overflow: hidden;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: all 0.7s ease;
+    visibility: hidden;
+
+    & .add-book {
+      padding: 0.8em 2em;
+      font-size: clamp(var(--font-size-l), 2vw, var(--font-size-2xl));
+      color: var(--brown-color);
+      background: var(--white-color);
+      letter-spacing: 0.3em;
+      border: none;
+    }
+
+    & .add-book:hover {
+      color: var(--brown-color);
+      background: var(--card-color);
+    }
   }
 
-  & .add-book:hover {
-    color: var(--brown-color);
-    background: var(--card-color);
+  & .right-side.is-active {
+    display: block;
+    max-height: 20em;
+    visibility: visible;
+    transform: scaleY(1);
+  }
+
+  & .left-side {
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & .hamburger {
+      padding: 0 1em;
+      font-size: var(--font-size-2xl);
+      min-width: 3em;
+    }
   }
 }
 
@@ -98,6 +129,7 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5em;
+  margin-bottom: 3rem;
 
   & .card {
     display: flex;
@@ -281,6 +313,26 @@ button {
       & .form-control:not(:last-of-type) {
         flex-direction: row;
       }
+    }
+  }
+}
+
+@media (width > 43.75em) {
+  .navbar {
+    & .left-side {
+      flex: 0 1 auto;
+
+      & .hamburger {
+        display: none;
+      }
+    }
+
+    & .right-side {
+      visibility: visible;
+      flex: 0 1 auto;
+      max-height: none;
+      overflow: visible;
+      transform: scaleY(1);
     }
   }
 }
