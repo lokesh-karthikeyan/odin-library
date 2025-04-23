@@ -1,6 +1,7 @@
 # The Odin Project - Library
 
-
+A Simple **Library** application, where new *books* can be *added* (or) *removed*.
+The *reading status* can also be toggled between *Start Reading* & *Completed*.
 
 ## Credits
 
