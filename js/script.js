@@ -1,18 +1,21 @@
 const myLibrary = [];
 
 /*******************************************************************************************
- * Object Constructor: Create instances of Books.                                          *
+ * Class: Create instances of Books & toggles readStatus.                                  *
  *******************************************************************************************/
 
-function Book(title, author, totalPages, readStatus) {
-  if (!new.target) {
-    throw Error("Use `new` keyword to instantiate the object.");
+class Book {
+  constructor(title, author, totalPages, readStatus) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.totalPages = totalPages;
+    this.readStatus = readStatus;
   }
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.totalPages = totalPages;
-  this.readStatus = readStatus;
+
+  toggleReadStatus() {
+    this.readStatus = this.readStatus ? false : true;
+  }
 }
 
 /*******************************************************************************************
@@ -99,11 +102,7 @@ function toggleReadStatus(element) {
   let id = fetchElementId(element);
   let selectedBook = findBookById(id);
 
-  if (selectedBook.readStatus) {
-    selectedBook.readStatus = false;
-  } else {
-    selectedBook.readStatus = true;
-  }
+  selectedBook.toggleReadStatus();
 }
 
 /*******************************************************************************************
