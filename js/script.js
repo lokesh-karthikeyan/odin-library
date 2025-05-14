@@ -151,15 +151,32 @@ function emptyLibrary(booksContainer) {
 
 let createNewBook = document.querySelector(".form-button");
 
-createNewBook.addEventListener("click", (event) => {
-  event.preventDefault();
-
-  let title = document.getElementById("title").value;
-  let author = document.getElementById("author").value;
-  let pages = document.getElementById("pages").value;
+createNewBook.addEventListener("click", () => {
+  let title = document.getElementById("title").value.trim();
+  let author = document.getElementById("author").value.trim();
+  let pages = document.getElementById("pages").value.trim();
   let readStatus = document.getElementById("read-status").checked;
 
-  if (title === "" || author === "" || pages === "") return;
+  if (title === "") {
+    formValidation.validateTitle();
+    return;
+  } else {
+    clearErrors.title();
+  }
+
+  if (author === "") {
+    formValidation.validateAuthor();
+    return;
+  } else {
+    clearErrors.author();
+  }
+
+  if (pages === "") {
+    formValidation.validatePages();
+    return;
+  } else {
+    clearErrors.pages();
+  }
 
   let modalContainer = document.getElementById("modal-container");
   let newBook = new Book(title, author, pages, readStatus);
@@ -258,3 +275,49 @@ menu.addEventListener("click", () => {
     menu.innerHTML = "&#9776;";
   }
 });
+
+/*******************************************************************************************
+ * Function Objective: Display errors for input.                                           *
+ *******************************************************************************************/
+
+const formValidation = (() => {
+  const validateTitle = () => {
+    let errorField = document.querySelector(`#title + .error`);
+    errorField.textContent = "A book should have a title";
+  };
+
+  const validateAuthor = () => {
+    let errorField = document.querySelector("#author + .error");
+    errorField.textContent = "A book should have an author";
+  };
+
+  const validatePages = () => {
+    let errorField = document.querySelector("#pages + .error");
+    errorField.textContent = "A book should have pages";
+  };
+
+  return { validateTitle, validateAuthor, validatePages };
+})();
+
+/*******************************************************************************************
+ * Function Objective: Clear input errors for input.                                       *
+ *******************************************************************************************/
+
+const clearErrors = (() => {
+  const title = () => {
+    let errorField = document.querySelector("#title + .error");
+    errorField.textContent = "";
+  };
+
+  const author = () => {
+    let errorField = document.querySelector("#author + .error");
+    errorField.textContent = "";
+  };
+
+  const pages = () => {
+    let errorField = document.querySelector("#pages + .error");
+    errorField.textContent = "";
+  };
+
+  return { title, author, pages };
+})();
