@@ -281,6 +281,12 @@ button {
   }
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+}
+
 /* === FOOTER === */
 
 .footer-content {
